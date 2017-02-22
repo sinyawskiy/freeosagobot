@@ -1,0 +1,21 @@
+CREATE TABLE `osago` (
+	`date`	NUMERIC,
+	`chat_id`	INTEGER,
+	`username`	TEXT,
+	`first_name`	TEXT,
+	`last_name`	TEXT,
+	`vladelec`	INTEGER,
+	`usloviya`	INTEGER,
+	`tip_ts`	TEXT,
+	`moshnost`	INTEGER,
+	`pricep`	INTEGER,
+	`region`	INTEGER,
+	`city`	TEXT,
+	`period_fl`	INTEGER,
+	`period_ul`	INTEGER,
+	`period_in`	INTEGER,
+	`spisok`	INTEGER,
+	`voditeli`	INTEGER,
+	`kbm`	TEXT,
+	`narusheniya`	INTEGER
+)
