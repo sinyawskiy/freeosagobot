@@ -9,52 +9,14 @@ from tornado.httpserver import HTTPServer
 from tornado.ioloop import PeriodicCallback, IOLoop
 from tornado.queues import Queue, QueueEmpty
 from tornado.web import RequestHandler, os
-
-
-# class MainHandler(RequestHandler):
-#     def get(self):
-#         self.render('templates/telegram.html')
-#
-#
-# class SendMessageHandler(RequestHandler):
-#     def initialize(self, bot, secret):
-#         self.secret = secret
-#         self.bot = bot
-#
-#     def get(self, chat_id):
-#         print chat_id
-#         message = self.get_argument('message')
-#         secret = self.get_argument('secret')
-#         print secret, self.secret
-#
-#         if message and secret and secret == self.secret:
-#             self.bot.send_message(
-#                 chat_id=chat_id,
-#                 text=message,
-#                 reply_markup=''
-#             )
-
-# class ChannelIdHandler(RequestHandler):
-#     def initialize(self, bot):
-#         self.bot = bot
-#
-#     def get(self):
-#         chat_name = self.get_argument('chat_name')
-#         print chat_name
-#
-#         if chat_name:
-#             result = self.bot.send_message(
-#                 chat_id=chat_name,
-#                 text='get_id',
-#                 reply_markup=''
-#             )
-#             print result
 import time
-from SQLiteHandler import SQLiteHandler
-from calculate import calculate
+from include.SQLiteHandler import SQLiteHandler
+from include.questions import QUESTIONS, get_text_question, get_text_answer
+from include.calculate import calculate
 from config import WELCOME_TEXT, HELP_TEXT, DATABASE_NAME, COMMANDS, URL, PHONE_NUMBER, FIRST_NAME, LAST_NAME, SUCCESS_TEXT, SEND_EMAIL, EMAIL_FROM, EMAIL_TO, EMAIL_SUBJECT, EMAIL_TEXT, EMAIL_FROM_PASSWORD, EMAIL_FROM_USER
-from questions import QUESTIONS, get_text_question, get_text_answer
 
+
+#https://github.com/sinyawskiy/freeosagobot.git
 
 class SqlitePeriodicCallback(PeriodicCallback):
     def __init__(self, request_queue, response_queue, callback_time, io_loop=None):
@@ -84,6 +46,7 @@ class SqlitePeriodicCallback(PeriodicCallback):
                     if answer[0] == message['text']:
                         value = answer[1]
                         break
+
         if value is not None:
             #print attr, value
             row = self.sql.execute(''' UPDATE osago SET %(attr)s='%(value)s' WHERE chat_id=%(chat_id)s AND date = %(date)s''' % {
@@ -252,15 +215,15 @@ class SqlitePeriodicCallback(PeriodicCallback):
         else:
             start = False
             is_reset = False
-            # if message['text'] in [COMMANDS['full_cmd'], COMMANDS['full_txt']]:
-            #     message.update({
-            #         'date': int(time.time()),
-            #         'kbm': '3',
-            #         'osago_type': 'full'
-            #     })
-            #     row = self.sql.execute(''' INSERT INTO osago (date, chat_id, username, first_name, last_name, osago_type) VALUES (%(date)s, '%(chat_id)s', '%(username)s', '%(first_name)s', '%(last_name)s', '%(osago_type)s');''' % message)
-            #     start = True
-            if message['text'] in [COMMANDS['simple_cmd'], COMMANDS['simple_txt']]:
+            if message['text'] in [COMMANDS['full_cmd'], COMMANDS['full_txt']]:
+                message.update({
+                    'date': int(time.time()),
+                    'kbm': '3',
+                    'osago_type': 'full'
+                })
+                row = self.sql.execute(''' INSERT INTO osago (date, chat_id, username, first_name, last_name, osago_type) VALUES (%(date)s, '%(chat_id)s', '%(username)s', '%(first_name)s', '%(last_name)s', '%(osago_type)s');''' % message)
+                start = True
+            elif message['text'] in [COMMANDS['simple_cmd'], COMMANDS['simple_txt']]:
                 message.update({
                     'date': int(time.time()),
                     'osago_type': 'simple',
@@ -434,9 +397,6 @@ def main():
                 'message_id': message.message_id,
                 'wait_message_id': response.message_id
             })
-        # else:
-        #     bot.reply_to(message, u'''По вопросам разработки Telegram ботов email alex@sinyawskiy.com http://sinaywskiy.ru''')
-        #     bot.send_contact(message['chat_id'], phone_number='79500276617', last_name=u'Алексей', first_name=u'Синявский')
 
 
     ioloop = tornado.ioloop.IOLoop.instance()
@@ -444,18 +404,6 @@ def main():
     BotPeriodicCallback(bot, 1000, ioloop).start()
     SqlitePeriodicCallback(request_queue, response_queue, 1000, ioloop).start()
 
-    # host = '0.0.0.0'
-    # http_port = 8087
-    #
-    # http_server = HTTPServer(
-    #     tornado.web.Application([
-    #         (r'/', MainHandler),
-    #         (r'/send_message/(.*)/', SendMessageHandler, {'bot': bot, 'secret': SECRET}),
-    #         # (r'/get_channel_id/', ChannelIdHandler, {'bot': bot})
-    #     ], debug=True)
-    # )
-    # http_server.listen(http_port, host)
-    # print("HTTP listening on %s:%d..." % (host, http_port))
     ioloop.start()
 
 

@@ -704,6 +704,3 @@ def get_text_answer(question_id, answer_id):
         return u'%s' % answer_id
     else:
         return u''
-
-# if __name__ == "__main__":
-#     print get_text_answer('city', '3_4')

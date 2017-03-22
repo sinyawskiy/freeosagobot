@@ -397,128 +397,56 @@ def calculate(answers):
     if is_jur:
         if usloviya in ['0','3']: #standart her znaet chto
             if tip_ts in [u'b', u'b-t']:
-                # print 1
-                # print 'base_min * k_ter * k_bm * q * h * n * x * f'
-                # print base_min, k_ter, k_bm, q, h, n, x, f
-                # print 'base_max * k_ter * k_bm * q * h * n * x * f'
-                # print base_max, k_ter, k_bm, q, h, n, x, f
-
                 osago_min = base_min * k_ter * k_bm * q * h * n * x * f
                 osago_max = base_max * k_ter * k_bm * q * h * n * x * f
                 formula = u'ТБ × КТ × КБМ × КО × КМ × КС × КН × КПр'
             else:
-                # print 2
-                # print 'base_min * k_ter * k_bm * q * f * n * x'
-                # print base_min, k_ter, k_bm, q, f, n, x
-                # print 'base_max * k_ter * k_bm * q * f * n * x'
-                # print base_max, k_ter, k_bm, q, f, n, x
-
                 osago_min = base_min * k_ter * k_bm * q * f * n * x
                 osago_max = base_max * k_ter * k_bm * q * f * n * x
                 formula = u'ТБ × КТ × КБМ × КО × КС × КН × КПр'
         elif usloviya == '1': #transit
             if tip_ts in [u'b', u'b-t']:
-                # print 3
-                # print 'base_min * k_spisok_notlim * h * k_period_transit * f'
-                # print base_min, k_spisok_notlim, h, k_period_transit, f
-                # print 'base_max * k_spisok_notlim * h * k_period_transit * f'
-                # print base_max, k_spisok_notlim, h, k_period_transit, f
-
                 osago_min = base_min * k_spisok_notlim * h * k_period_transit * f
                 osago_max = base_max * k_spisok_notlim * h * k_period_transit * f
                 formula = u'ТБ × КО × КМ × КП × КПр'
             else:
-                # print 4
-                # print 'base_min * k_spisok_notlim * k_period_transit * f'
-                # print base_min, k_spisok_notlim, k_period_transit, f
-                # print 'base_max * k_spisok_notlim * k_period_transit * f'
-                # print base_max, k_spisok_notlim, k_period_transit, f
-
                 osago_min = base_min * k_spisok_notlim * k_period_transit * f
                 osago_max = base_max * k_spisok_notlim * k_period_transit * f
                 formula = u'ТБ × КО × КП × КПр'
         elif usloviya == '2': # inostranec
             if tip_ts in [u'b', u'b-t']:
-                # print 5
-                # print 'base_min * k_ter * q * h * n * x * f'
-                # print base_min, k_ter, q, h, n, x, f
-                # print 'base_max * k_ter * q * h * n * x * f'
-                # print base_max, k_ter, q, h, n, x, f
-
                 osago_min = base_min * k_ter * q * h * n * x * f
                 osago_max = base_max * k_ter * q * h * n * x * f
                 formula = u'ТБ × КТ × КБМ × КО × КМ × КП × КН × КПр'
             else:
-                # print 6
-                # print 'base_min * k_ter * q * n * x * f'
-                # print base_min, k_ter, q, n, x, f
-                # print 'base_max * k_ter * q * n * x * f'
-                # print base_max, k_ter, q, n, x, f
-
                 osago_min = base_min * k_ter * q * n * x * f
                 osago_max = base_max * k_ter * q * n * x * f
                 formula = u'ТБ × КТ × КБМ × КО × КП × КН × КПр'
     else:
         if usloviya in ['0','3']: #standart her znaet chto
             if tip_ts in [u'b', u'b-t']:
-                # print 7
-                # print 'base_min * k_ter * k_bm * s * q * h * n * x'
-                # print base_min, k_ter, k_bm, s, q, h, n, x
-                # print 'base_max * k_ter * k_bm * s * q * h * n * x'
-                # print base_max, k_ter, k_bm, s, q, h, n, x
-
                 osago_min = base_min * k_ter * k_bm * s * q * h * n * x
                 osago_max = base_max * k_ter * k_bm * s * q * h * n * x
                 formula = u'ТБ × КТ × КБМ × КВС × КО × КМ × КС × КН'
             else:
-                # print 8
-                # print 'base_min * k_ter * k_bm * s * q * f * n * x'
-                # print base_min, k_ter, k_bm, s, q, f, n, x
-                # print 'base_max * k_ter * k_bm * s * q * f * n * x'
-                # print base_max, k_ter, k_bm, s, q, f, n, x
-
                 osago_min = base_min * k_ter * k_bm * s * q * f * n * x
                 osago_max = base_max * k_ter * k_bm * s * q * f * n * x
                 formula = u'ТБ × КТ × КБМ × КВС × КО × КС × КН × КПр'
         elif usloviya == '1': #transit
             if tip_ts in [u'b', u'b-t']:
-                # print 9
-                # print 'base_min * s * q * h * k_period_transit'
-                # print base_min, s, q, h, k_period_transit
-                # print 'base_max * s * q * h * k_period_transit'
-                # print base_max, s, q, h, k_period_transit
-
                 osago_min = base_min * s * q * h * k_period_transit
                 osago_max = base_max * s * q * h * k_period_transit
                 formula = u'ТБ × КВС × КО × КМ × КП'
             else:
-                # print 10
-                # print 'base_min * s * q * k_period_transit * f'
-                # print base_min, s, q, k_period_transit, f
-                # print 'base_max * s * q * k_period_transit * f'
-                # print base_max, s, q, k_period_transit, f
-
                 osago_min = base_min * s * q * k_period_transit * f
                 osago_max = base_max * s * q * k_period_transit * f
                 formula = u'ТБ × КВС × КО × КП × КПр'
         elif usloviya == '2': # inostranec
             if tip_ts in [u'b', u'b-t']:
-                # print 11
-                # print 'base_min * k_ter * q * h * n * x'
-                # print base_min, k_ter, q, h, n, x
-                # print 'base_max * k_ter * q * h * n * x'
-                # print base_max, k_ter, q, h, n, x
-
                 osago_min = base_min * k_ter * q * h * n * x
                 osago_max = base_max * k_ter * q * h * n * x
                 formula = u'ТБ × КТ × КБМ × КВС × КО × КМ × КН × КН'
             else:
-                # print 12
-                # print 'base_min * k_ter * q * n * x * f'
-                # print base_min, k_ter, q, n, x, f
-                # print 'base_max * k_ter * q * n * x * f'
-                # print base_max, k_ter, q, n, x, f
-
                 osago_min = base_min * k_ter * q * n * x * f
                 osago_max = base_max * k_ter * q * n * x * f
                 formula = u'ТБ × КТ × КБМ × КО × КП × КН × КПр'
@@ -528,9 +456,3 @@ def calculate(answers):
         osago_max = w
 
     return osago_min, osago_max, formula
-
-
-# answers = [('vladelec', 1), ('usloviya', 0), ('tip_ts', u'b'), ('moshnost', 4), ('pricep', 1), ('region', 3), ('city', u'3_4'), ('period_fl', 10), ('period_ul', None), ('period_in', 10), ('spisok', 2), ('voditeli', None), ('kbm', None), ('narusheniya', 1)]
-# min_o, max_o, f_o = calculate(answers)
-# print min_o, max_o, f_o
-
